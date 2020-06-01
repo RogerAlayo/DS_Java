@@ -10,20 +10,20 @@ public class Main {
         Node twenty = new Node(20);
         Node ten = new Node(10);
 
-        LinkedList prac = new LinkedList();
-        prac.insertInLinkedList(ten, 1);
-        prac.insertInLinkedList(ten, 0);
-        prac.insertInLinkedList(twenty, 1);
-        System.out.println("Size = " + prac.getSize());
-        prac.traverseLinkedList();
-        prac.deletionOfNode(1);
-        prac.traverseLinkedList();
+        LinkedList tempList = new LinkedList();
+        tempList.insertInLinkedList(ten, 1);
+        tempList.insertInLinkedList(ten, 0);
+        tempList.insertInLinkedList(twenty, 1);
+        System.out.println("Size = " + tempList.getSize());
+        tempList.traverseLinkedList();
+        tempList.deletionOfNode(1);
+        tempList.traverseLinkedList();
 
         System.out.println("----------");
 
         //deleting the only node in LL
-        /*prac.deletionOfNode(0);
-        prac.traverseLinkedList();
+        /*tempList.deletionOfNode(0);
+        tempList.traverseLinkedList();
         System.out.println("----------");*/
 
         //Start & insert at position 0
@@ -59,7 +59,6 @@ public class Main {
         //search for data, returns Node position;
         System.out.println("***Found Node " + SinglyLinkedList.searchNode(20) + "***");
 
-        //System.out.println(SinglyLinkedList.head.data);
         //Delete @ position last
         SinglyLinkedList.deletionOfNode(4);
         System.out.println("Size = " + SinglyLinkedList.getSize());

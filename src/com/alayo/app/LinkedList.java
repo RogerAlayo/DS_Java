@@ -22,13 +22,10 @@ public class LinkedList {
     }
 
     public void insertInLinkedList(Node node, int location) {
-        //Linked list does not exist & they thought it did so insert at position > 0.
-        if (head == null && location > 0) {
+        if (head == null && location > 0) {     //Check: Linked list DNE & user doesn't know so inserts at position > 0.
             System.out.println("No Linked List Found");
             return;
-        }
-        //LL DNE and they know it doesnt
-        else if (head == null && tail == null && location == 0) {    //can I call above constructor: Linkedlist(Node node) since same code?
+        } else if (head == null && tail == null && location == 0) {     //Check: Linked List DNE & user knows
             node.next = null;
             head = node;
             tail = node;
@@ -37,16 +34,14 @@ public class LinkedList {
             head = node;
         } else if (location == size) {    //Case 2: Insert at last
             node.next = null;
-            tail.next = node;   //stores address of node in tail's next field, since ref var with last node in LL so its next field gets updated too
-            tail = node;    //puts address of node in
+            tail.next = node;
+            tail = node;
         } else {    //Case 3: insert at specified location
             int counter = 0;
             for (Node iterator = head; iterator != null; iterator = iterator.next) {
                 if (counter == location - 1) {
                     node.next = iterator.next;
                     iterator.next = node;
-                    //++size;
-                    //return;
                     break;
                 }
                 ++counter;
@@ -85,24 +80,20 @@ public class LinkedList {
         return -1;
     }
 
-    //
-    //Q:size starts at 1 cuz I did that, but how location starts at 0 by default?
     public void deletionOfNode(int location) {
-        if (head == null) {
-            System.out.println("Linked List is empty"); //Linked List does not exist
-            return; //have this here since I don't want last statement to execute: update size - 1
+        if (head == null) {     //Check: Linked List does not exist
+            System.out.println("Linked List is empty");
+            return;
         } else if (location == 0) {   //Case 1: Delete first node
-            if (head.next == null) {    //if 1st node was only node in LL
+            if (head.next == null) {    //Check: if 1st node was only node in Linked List
                 head = null;
                 tail = null;
                 --size;
-                return; //can't use break outside of loop, so can't use it here.
+                return;
             }
-
             head = head.next;
-            //--size;
         } else if (location >= size) {   //Case 2: Delete last node
-            if (size == 1) {    //if node is only node in LL
+            if (size == 1) {    //Check: if node is only node in Linked List
                 head = tail = null;
                 --size;
                 return;
@@ -112,14 +103,9 @@ public class LinkedList {
 
             for (Node iterator = head; iterator.next != null; iterator = iterator.next) {
                 if (iterator.next.next == null) {
-                    tail = iterator;       //tail = iterator.next;  Q:WHY iterator.next still works?
-                                           //cuz iterator.next doesnt do squat (tail doesnt move),
-                                           //its the next line that does the work (iterator.next = null;)
-                                           //iterator == head (first node), so head(first node).next = null is making first node = null
+                    tail = iterator;
                     iterator.next = null;
-                    break;  //if this was is middle & not last this break would be req., I'm leaving here in case for future work
-                    //--size;
-                    //return;
+                    break;
                 }
             }
         } else {   //Case 3: Delete middle node
@@ -128,8 +114,6 @@ public class LinkedList {
                 if (count == location - 1) {
                     iterator.next = iterator.next.next;
                     break;
-                    //--size;
-                    //return;
                 }
                 ++count;
             }
