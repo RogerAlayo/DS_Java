@@ -1,120 +1,207 @@
 package com.alayo.app;
 
 public class CSLL {
+    //Note: head & tail are references to something that will be of Node type. Don't let "Node" confuse u.
+    //only when u use new Node(30) is when u instantiate an object of Node type. (head = new Node(30))
+    //head (in the stack) will store the address of the new Node object (in the heap) that contains the data =30.
+    //All in all, head (reference type) just holds the address aka points to the 1st node in Linked List. It is not
+    //a node itself, just a reference to the first node.
+    //so head and tail should not be treated as nodes but as reference variables (aka variables that hold addresses of objects or Nodes)
+    private Node head;  //why isn't head used with new. so does it not have data, next properties (answer above^^)
+    private Node tail;
+    private int size;
+
+    public CSLL() {
+        head = null;
+        tail = null;
+    }
+
+    public CSLL(Node node) {
+        node.next = node;   //Node will point to itself
+        head = node;
+        tail = node;
+        ++this.size;
+    }
+
+    public int getSize() {
+        return this.size;
+    }
+
+    public void insertInLinkedList(Node node, int location) {
+        if (head == null && location > 0) {     //Check: Linked list DNE & user doesn't know so inserts at position > 0.
+            System.out.println("No Linked List Found");
+            return;
+        } else if (head == null && tail == null && location == 0) {     //Check: Linked List DNE & user knows
+            node.next = node;
+            head = node;
+            tail = node;
+        } else if (location == 0) {   //Case 1: Insert at start
+            /*if (size == 1) {
+                node.next = head;
+                head = node;
+                tail.next = head;
+            }
+            */
+            node.next = head;   //whatever address head is holding, put it in node's .next data field. so now node is pointing to that
+            head.next = node;
+            head = node;
+           /* node.next = head;
+            head = node;*/
+            //tail = head;    //last node points to first node
+        } else if (location >= size) {    //Case 2: Insert at last      //why head.next (or head) = node; node.next = head; tail = node; giving infinite loop
+            if(size == 1) {
+                node.next = head;
+                head.next = node;
+                tail = node;
+            } else {
+            //traverseLinkedList();
+            /*for (Node iterator = head; iterator.next != head; iterator = iterator.next) {
+                if (iterator.next == head) {
+                    node.next = head;
+                    iterator.next = node;
+                    tail = node;
+                    break;
+                }
+            }*/
+
+            //head = node;    //head should hold reference of node, so not node = head
+            //tail = node;
+
+                node.next = head;
+                tail.next = node;
+                tail = node;
+            }
+            //traverseLinkedList();
+        } else {    //Case 3: insert at specified location
+            int counter = 0;
+            for (Node iterator = head; iterator.next != head; iterator = iterator.next) {
+                if (counter == location - 1) {
+                    node.next = iterator.next;
+                    iterator.next = node;
+                    break;
+                }
+                ++counter;
+            }
+        }
+        ++size;
+    }
+
+    public void traverseLinkedList() {
+        if (head == null) {
+            System.out.println("No Linked List found");
+            return;
+        }
+
+        System.out.print("HEAD -> ");
+
+        Node iterator = head;
+
+        while (iterator.next != head) {
+            System.out.print(iterator.data);
+            System.out.print(" -> ");
+            iterator = iterator.next;
+        }
+        //if did it with for loop couldn't print out last node since for loop initiates iterator within braces
+        System.out.print(iterator.data);
+
+        /*
+        do{
+            System.out.print(iterator.data);
+            if(size > 1) {
+                System.out.print(" -> ");
+            }
+            iterator = iterator.next;   //this will update it to 10 again, can use if statement to prevent 10 printing out twice.
+        } while(iterator.next != head);
+
+        if (size > 1) {
+            System.out.print(iterator.data);
+        }
+        */
+        /*
+        for (Node iterator = head; iterator.next != head; iterator = iterator.next) {
+            System.out.print(iterator.data);
+            System.out.print(" -> ");
+        }
+         */
+        System.out.println(" -> COMPLETED FULL ITERATION");
+    }
+
+    public int searchNode(int nodeValue) {
+        if (head == null) {
+            System.out.println("No Linked List found");
+            return -1;
+        }
+
+        int counter = 0;
+
+        Node iterator = head;
+        while (iterator.next != head) {
+            if (iterator.data == nodeValue) {
+                return counter;
+            }
+            ++counter;
+            iterator = iterator.next;
+        }
+
+        if (iterator.data == nodeValue) {
+            return counter;
+        }
+
+        return -1;
+    }
+
+    //barely changed anything from SLL
+    public void deletionOfNode(int location) {
+        if (head == null) {     //Check: Linked List does not exist
+            System.out.println("Linked List is empty");
+            return;
+        } else if (location == 0) {   //Case 1: Delete first node
+            if (head.next == head) {    //Check: if 1st node was only node in Linked List
+                head = null;
+                tail = null;
+                --size;
+                return;
+            }
+
+            head = head.next;
+            tail.next = head;
+
+        } else if (location >= size) {   //Case 2: Delete last node
+            if (size == 1) {    //Check: if node is only node in Linked List
+                head = null;
+                tail = null;
+                --size;
+                return;
+            }
+
+            for (Node iterator = head; iterator.next != null; iterator = iterator.next) {
+                if (iterator.next.next == tail.next) {
+                    tail = iterator;
+                    iterator.next = head;
+                    break;
+                }
+            }
+
+        } else {   //Case 3: Delete middle node
+            int count = 0;
+            for (Node iterator = head; iterator.next != tail.next; iterator = iterator.next) {
+                if (count == location - 1) {
+                    iterator.next = iterator.next.next;
+                    break;
+                }
+                ++count;
+            }
+        }
+        --size;
+    }
+
+    public void deleteLinkedList() {
+        head = null;
+        tail = null;
+    }
 }
 
 /*
-##Circular Singly Linked List (CSLL)
-
-#####++Common Operations:++
-* Creation of Linked List
-* Insertion
-* Traversal
-* Searching
-* Deletion of a node from a Linked List
-* Deletion of a Linked List
-
-#####++1. Creation of a CSLL++
->Time Complexity: O(1)
->Space Complexity: O(1) *(since only creating head, tail, and node)*
-
-```CSS
-createLinkedList(nodeValue):
-O(1)	create a head, tail ptr, and initialize with NULL
-O(1)	create a blank node
-O(1)		a) node.value = nodeValue;
-O(1)		b) node.next = node;	//Node will point to itself
-O(1)	head = node; (since node 1 is first node) -> creates link
-O(1)	tail = node; (since node 1 is last node) -> creates link
-```
-
-#####++2. Insertion of a CSLL++
->Time Complexity: O(n)
->Space Complexity: O(1) *(since only creating head, tail, and node)*
-
-* There are 3 cases to consider:
-	1. Insert at start of LL
-	2. Insert at end of LL
-	3. Insert in middle of LL
-
-```CSS
-insertInLinkedList(head, nodeValue, location):
-O(1)	create a blank node
-O(1)		a) node.value = nodeValue;
-O(1)	if(!existsLinkedList(head))
-O(1)		return error;	//Linked list does not exist
-O(1)	else if(locatoin equals 0)    //Case 1: Insert at start
-O(1)		node.next = head;
-O(1)		head = node; tail.next = head
-O(1)	else if(location equals last)	//Case 2: Insert at last
-O(1)		node.next = head;
-O(1)		tail.next = node;
-O(1)		tail = node		//to keep track of last node
-O(1)	else	//Case 3: insert at specified location
-O(n)		loop: tmpNode = 0 to location - 1;	//loop till we reach specified node & end the loop
-O(1)		node.next = tempNode.next;
-O(1)		tmpNode.next = node;
-```
-
-#####++3. Traversal of a CSLL++
->Time Complexity: O(n)
->Space Complexity: O(1) *(since only creating head, tail, and node)*
-
-```CSS
-traverseLinkedList(head):
-O(1)	if(head == NULL), then return;
-O(n)	loop: head to tail
-O(1)		print currentNode.value;
-```
-
-#####++4. Searching a node of a CSLL++
->Time Complexity: O(n)
->Space Complexity: O(1) *(since only creating head, tail, and node)*
-
-```CSS
-searchNode(head, nodeValue):
-O(n)	loop: tmpNode = start to tail
-O(1)		if(tmpNode.value equals nodeValue)
-O(1)			print tmpNode.value	//node value found
-O(1)			return;
-O(1)	return	//node value not found
-```
-
-#####++5. Deletion of a node from a CSLL++
->Time Complexity: O(n)
->Space Complexity: O(1) *(since only creating head, tail, and node)*
-
-* There are 3 cases to consider:
-	1. Delete first node
-	2. Delete last node
-	3. Delete middle node
-
-```CSS
-deletionOfNode(head, location):
-O(1)	if(!existsLinkedList(head))
-O(1)		return error;	//Linked List does not exist
-O(1)	else if(location equals 0)	//Case 1: Delete first node
-O(1)		head = head.next; tail.next = head;
-O(1)		if this was the only node in list, then update head = tail = node.next = null;
-O(1)	else if(location >= last)	//Case 2: Delete last node
-O(1)		if(current node is only node in list) then, head = tail = node.next = null; return;
-O(n)		loop till 2nd last node (tmpNode)
-O(1)		tail = tmpNode; tmpNode.next = head;
-O(1)	else 	//Case 3: Delete middle node
-O(n)		loop: tmpNode = start to location - 1; //we need to traverse till we find the previous location
-O(1)	tmpNode.next = tmpNode.next.next	//delete the required node
-```
-
-#####++6. Deletion of entire CSLL++
->Time Complexity: O(1)
->Space Complexity: O(1) *(since only creating head, tail, and node)*
-
-```CSS
-deleteLinkedList(head,tail):
-O(1)	head = null;
-O(1)	tail.next = null;
-O(1)	tail = null;
-```
 #####++Time Complexity & Space Complexity++
 
 | Operations | Time Complexity | Space Complexity |
@@ -125,4 +212,5 @@ O(1)	tail = null;
 | Traversing | O(n)            | O(1)             |
 | Deletion of node  | O(n)     | O(1)             |
 | Deletion of SLL  | O(1)      | O(1)             |
- */
+
+*/

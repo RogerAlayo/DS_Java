@@ -1,17 +1,18 @@
 package com.alayo.app;
 
-public class LinkedList {
+public class DLL {
     private Node head;
     private Node tail;
     private int size;
 
-    public LinkedList() {
+    public DLL() {
         this.head = null;
         this.tail = null;
     }
 
-    public LinkedList(Node node) {
+    public DLL(Node node) {
         node.next = null;
+        node.prev = null;
         this.head = node;
         this.tail = node;
         ++this.size;
@@ -32,7 +33,7 @@ public class LinkedList {
         } else if (location == 0) {   //Case 1: Insert at start
             node.next = head;
             head = node;
-        } else if (location == size) {    //Case 2: Insert at last
+        } else if (location >= size) {    //Case 2: Insert at last
             node.next = null;
             tail.next = node;
             tail = node;
@@ -75,7 +76,7 @@ public class LinkedList {
             if (iterator.data == nodeValue) {
                 return counter;
             }
-                ++counter;
+            ++counter;
         }
         return -1;
     }
