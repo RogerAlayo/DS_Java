@@ -28,10 +28,13 @@ public class DLL {
             return;
         } else if (head == null && tail == null && location == 0) {     //Check: Linked List DNE & user knows
             node.next = null;
+            node.prev = null;
             head = node;
             tail = node;
         } else if (location == 0) {   //Case 1: Insert at start
+            node.prev = null;
             node.next = head;
+            head.prev = node;   //This says head.prev holds node's address. if (head.prev = node.next), which will have head.prev hold the address that node points which is itself.
             head = node;
         } else if (location >= size) {    //Case 2: Insert at last
             node.next = null;
@@ -39,10 +42,18 @@ public class DLL {
             tail = node;
         } else {    //Case 3: insert at specified location
             int counter = 0;
+             /*
+                Node<E> currentNode = head;
+                for (int i = 0; i < position; i++) {    //can also use for loop to just move iterator (currentNode) to where u want it
+                    currentNode = currentNode.next;
+                }
+             */
             for (Node iterator = head; iterator != null; iterator = iterator.next) {
                 if (counter == location - 1) {
                     node.next = iterator.next;
                     iterator.next = node;
+                    node.prev = iterator;
+                    iterator.next.prev = node;
                     break;
                 }
                 ++counter;
