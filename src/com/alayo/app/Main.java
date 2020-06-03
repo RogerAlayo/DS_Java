@@ -85,7 +85,23 @@ public class Main {
         System.out.println("***Found Node " + Llist.searchNode(20) + "***");
         System.out.println("----------");
 
+        //Delete @ position last
+        Llist.deletionOfNode(2);
+        System.out.println("Size = " + Llist.getSize());
+        Llist.traverseLinkedList();
+        System.out.println("----------");
+
+        //Delete @ position last
+        Llist.insertInLinkedList(ten, 2);
+        System.out.println("Size = " + Llist.getSize());
+        Llist.traverseLinkedList();
+        System.out.println("----------");
+
+        //search for data, returns Node position;
+        System.out.println("***Found Node " + Llist.searchNode(10) + "***");
+
         Llist.deleteLinkedList();
+        System.out.println("----------");
         Llist.traverseLinkedList();
     }
 }

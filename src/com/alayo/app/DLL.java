@@ -98,13 +98,14 @@ public class DLL {
             return;
         } else if (location == 0) {   //Case 1: Delete first node
             if (head.next == null) {    //Check: if 1st node was only node in Linked List
-                head = null;
-                tail = null;
+                head = tail = null;
                 --size;
                 return;
             }
+
             head = head.next;
-        } else if (location >= size) {   //Case 2: Delete last node
+            head.prev = null;
+        } else if (location >= size-1) {   //Case 2: Delete last node
             if (size == 1) {    //Check: if node is only node in Linked List
                 head = tail = null;
                 --size;
@@ -125,6 +126,8 @@ public class DLL {
             for (Node iterator = head; iterator.next != null; iterator = iterator.next) {
                 if (count == location - 1) {
                     iterator.next = iterator.next.next;
+                    iterator.next.prev = iterator;
+                    System.out.println(iterator.next.prev.data); TODO:/*check to see if prev is pointing correctly*/
                     break;
                 }
                 ++count;
