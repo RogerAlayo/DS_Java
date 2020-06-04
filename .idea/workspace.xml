@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9260e995-6029-4639-8739-237b68807f0f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/alayo/app/CDLL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/alayo/app/DLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alayo/app/DLL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/alayo/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alayo/app/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +93,7 @@
       <workItem from="1591213218642" duration="97000" />
       <workItem from="1591213382259" duration="3600000" />
       <workItem from="1591217285832" duration="4002000" />
-      <workItem from="1591234203740" duration="6296000" />
+      <workItem from="1591234203740" duration="9600000" />
     </task>
     <servers />
   </component>
@@ -224,11 +224,6 @@
           <url>file://$PROJECT_DIR$/src/com/alayo/app/CSLL.java</url>
           <line>137</line>
           <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/alayo/app/Main.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
