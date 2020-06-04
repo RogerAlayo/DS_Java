@@ -51,9 +51,13 @@ public class DLL {
             for (Node iterator = head; iterator != null; iterator = iterator.next) {
                 if (counter == location - 1) {
                     node.next = iterator.next;
+                    iterator.next.prev = node;
                     iterator.next = node;
                     node.prev = iterator;
-                    iterator.next.prev = node;
+
+                    /*System.out.println(node.next.prev.data);
+                    System.out.println(node.next.data);
+                    System.out.println(node.next.data);*/
                     break;
                 }
                 ++counter;
@@ -67,10 +71,10 @@ public class DLL {
             System.out.println("No Linked List found");
             return;
         }
-        System.out.print("HEAD -> ");
+        System.out.print("HEAD <-> ");
         for (Node iterator = head; iterator != null; iterator = iterator.next) {
             System.out.print(iterator.data);
-            System.out.print(" -> ");
+            System.out.print(" <-> ");
         }
         System.out.println("NULL");
     }
@@ -127,7 +131,6 @@ public class DLL {
                 if (count == location - 1) {
                     iterator.next = iterator.next.next;
                     iterator.next.prev = iterator;
-                    System.out.println(iterator.next.prev.data); TODO:/*check to see if prev is pointing correctly*/
                     break;
                 }
                 ++count;
